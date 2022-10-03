@@ -1,0 +1,102 @@
+---
+- name: Mac Setup Playbook
+  hosts: all
+
+  # vars_files:
+
+  pre_tasks:
+    - name: Include playbook configuration.
+      include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
+  
+  vars:
+    # HOMEBREW
+    homebrew_installed_packages:
+      - mysql
+      - go
+      - node
+      - nvm
+      - kubectl
+      - rust
+      - starship
+      - zsh-history-substring-search
+        # - zsh-autosuggestion
+    homebrew_cask_apps:
+      - firefox
+      - google-chrome
+      - visual-studio-code
+      - slack
+      # - docker
+    homebrew_upgrade_all_packages: true
+    
+    # MAS
+    mas_signin_dialog: true
+    mas_installed_apps:
+      - { id: 497799835 , name: "XCode (14.0.1)" }
+      - { id: 1569813296, name: "1Password for Safari (2.3.8)" }
+
+    # DOCK
+    # Seems not to work with 12.6 currently
+    dockitems_remove:
+      - Launchpad
+      - TV
+      - Podcasts
+      - 'App Store'
+      - Maps
+      - Reminders
+      - Notes
+      - Podcasts
+      - Shortcuts
+      - Photos
+      - Messages
+      - Terminal
+
+        # dockitems_persist:
+        #- name: Google Chrome
+        #path: "/Application/Google Chrome.app/"
+        #pos: 4
+        #- name: Firefox
+        #path: "/Application/Firefox.app/"
+        #pos: 5
+        #- name: Visual Studio Code
+        #path: "/Application/Visual Studio Code.app/"
+        #pos: 7
+        #- name: Terminal
+        #path: "/Application/Terminal.app/"
+        #pos: 8
+        # - name: Music
+        #   path: "/Application/Music.app/"
+        #   pos: 9
+
+  roles:
+    - homebrew
+    - dotfiles
+    - mas
+    - dock
+
+  tasks:
+    #- import_tasks: tasks/brew.yml
+      # when: configure_homebrew
+      # tags: ['brew']
+
+     - name: Check if oh-my-zsh is installed
+       shell: ls ~/.oh-my-zsh
+       register: ohmyzsh_installed
+
+     - name: Install oh-my-zsh
+       shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"    
+       when: not ohmyzsh_installed
+
+     - name: Install zsh-autosuggestions
+       ansible.builtin.git:
+         repo: "https://github.com/zsh-users/zsh-autosuggestions"
+         dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+     - name: Activate zsh
+       user:
+         name: "{{ ansible_user_id }}"
+         shell: /bin/zsh
+
+    # - block:
