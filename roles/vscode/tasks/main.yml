@@ -1,0 +1,16 @@
+---
+- name: Ensure VSCode directory exists.
+  stat:
+    path: '{{ vscode_installation_path }}'
+
+# TODO: Find a way to check for existing extensions
+
+- name: Install visual studio code extensions
+  shell: 'code --install-extension {{ item }}'
+  loop: '{{ vscode_extensions }}'
+
+- name: Include visual studio code settings
+  copy:
+    src: files/settings.json
+    dest: '{{ vscode_settings_path }}'
+    force: true

@@ -1,0 +1,5 @@
+---
+vscode_settings_path:
+  '/Users/{{ ansible_user_id }}/Library/Application Support/Code/User'
+
+vscode_installation_path: '/Applications/Visual Studio Code.app'
