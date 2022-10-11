@@ -1,0 +1,56 @@
+---
+# TODO: Improve script efficiency of validating existing plugins
+
+- name: Check if oh-my-zsh is installed
+  stat:
+    path: ~/.oh-my-zsh
+  register: ohmyzsh_installed
+
+- name: Install oh-my-zsh
+  shell:
+    sh -c "$(curl -fsSL
+    https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  when: not ohmyzsh_installed
+
+- name: Install zsh-history-substring-search
+  git:
+    repo: 'https://github.com/zsh-users/zsh-history-substring-search'
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+
+- name: Install zsh-autosuggestions
+  git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions'
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+- name: Activate zsh
+  become: true
+  user:
+    name: '{{ ansible_user_id }}'
+    shell: |
+      /bin/zsh
+      source ~/.zshrc
+
+- name: Create starship.toml
+  shell: |
+    mkdir ~/.config
+    touch ~/.config/starship.toml
+
+- name: Activate starship visuals
+  shell: starship preset bracketed-segments > ~/.config/starship.toml
+
+- name: Get latest Fira Code Font Release
+  uri:
+    url: 'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest'
+    return_content: true
+    validate_certs: no
+  register: fira_code
+
+- name: Install Fira Code Font {{ fira_code.json.tag_name }}
+  unarchive:
+    src:
+      'https://github.com/ryanoasis/nerd-fonts/releases/download/{{
+      fira_code.json.tag_name }}/FiraCode.zip'
+    dest: '~/Library/Fonts'
+    remote_src: true
+    keep_newer: true
+    validate_certs: no
