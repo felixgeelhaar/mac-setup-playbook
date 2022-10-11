@@ -1,0 +1,17 @@
+---
+homebrew_installed_packages:
+  - mysql
+  - go
+  - node
+  - nvm
+  - kubectl
+  - rust
+  - starship
+  - tmux
+homebrew_cask_apps:
+  - firefox
+  - google-chrome
+  - visual-studio-code
+  - slack
+  # - docker
+homebrew_upgrade_all_packages: true

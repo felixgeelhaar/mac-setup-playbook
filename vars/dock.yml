@@ -1,0 +1,31 @@
+---
+# Seems not to work with 12.6 currently
+dockitems_remove:
+  - Launchpad
+  - TV
+  - Podcasts
+  - 'App Store'
+  - Maps
+  - Reminders
+  - Notes
+  - Podcasts
+  - Shortcuts
+  - Photos
+  - Messages
+  # - Terminal
+# dockitems_persist:
+# - name: Google Chrome
+#   path: '/Application/Google Chrome.app/'
+#   pos: 4
+# - name: Firefox
+#   path: '/Application/Firefox.app/'
+#   pos: 5
+# - name: Visual Studio Code
+#   path: '/Application/Visual Studio Code.app/'
+#   pos: 7
+# - name: Terminal
+#   path: '/Application/Terminal.app/'
+#   pos: 8
+# - name: Music
+#   path: '/Application/Music.app/'
+#   pos: 9
