@@ -28,7 +28,7 @@
     name: '{{ ansible_user_id }}'
     shell: |
       /bin/zsh
-      source ~/.zshrc
+      source /.zshrc
 
 - name: Create starship.toml
   shell: |
