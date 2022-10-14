@@ -14,5 +14,6 @@ homebrew_cask_apps:
   - visual-studio-code
   - slack
   - zoom
+  - 1password
   # - docker
 homebrew_upgrade_all_packages: true
