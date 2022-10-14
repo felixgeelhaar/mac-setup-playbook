@@ -1,13 +1,16 @@
 ---
 homebrew_installed_packages:
   - mysql
-  - go
   - node
   - nvm
   - kubectl
-  - rust
   - starship
   - tmux
+  - gh
+  - nvim
+  # I might want to exclude those to separate installations due to improved usage
+  - go
+  - rust
 homebrew_cask_apps:
   - firefox
   - google-chrome
