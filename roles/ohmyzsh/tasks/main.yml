@@ -4,13 +4,13 @@
 - name: Check if oh-my-zsh is installed
   stat:
     path: ~/.oh-my-zsh
-  register: ohmyzsh_installed
+  register: o
 
 - name: Install oh-my-zsh
   shell:
     sh -c "$(curl -fsSL
     https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  when: not ohmyzsh_installed
+  when: not o.stat.exists
 
 - name: Install zsh-history-substring-search
   git:
@@ -28,7 +28,7 @@
     name: '{{ ansible_user_id }}'
     shell: |
       /bin/zsh
-      source /.zshrc
+      source ~/.zshrc
 
 - name: Create starship.toml
   shell: |
@@ -42,7 +42,7 @@
   uri:
     url: 'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest'
     return_content: true
-    validate_certs: no
+    validate_certs: false
   register: fira_code
 
 - name: Install Fira Code Font {{ fira_code.json.tag_name }}
@@ -53,4 +53,4 @@
     dest: '~/Library/Fonts'
     remote_src: true
     keep_newer: true
-    validate_certs: no
+    validate_certs: false
