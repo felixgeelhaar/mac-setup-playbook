@@ -6,8 +6,9 @@
 # TODO: Find a way to check for existing extensions
 
 - name: Install visual studio code extensions
-  shell: 'code --install-extension {{ item }}'
+  command: 'code --install-extension {{ item }}'
   loop: '{{ vscode_extensions }}'
+  ignore_errors: true
 
 - name: Include visual studio code settings
   copy:

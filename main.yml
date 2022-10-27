@@ -4,8 +4,9 @@
 
   vars_files:
     - vars/vscode.yml
-    - vars/homebrew.yml
     - vars/mas.yml
+    - vars/homebrew.yml
+    - vars/dotfiles.yml
     - vars/dock.yml
 
   # List extra variables, if necessary
@@ -15,9 +16,9 @@
   # tasks:
 
   roles:
-    - homebrew
-    - dotfiles
+    - geerlingguy.mac.homebrew
+    - geerlingguy.mac.mas
+    - geerlingguy.mac.dock
+    - geerlingguy.dotfiles
     - vscode
-    - mas
-    - dock
     - ohmyzsh
