@@ -14,19 +14,28 @@ dockitems_remove:
   - Messages
   - Contacts
   - FaceTime
-  # - Terminal
+  - Terminal
 dockitems_persist:
+  - name: Mail
+    path: '/Applications/Mail.app/'
+    pos: 2
+  - name: Calendar
+    path: '/Applications/Calendar.app/'
+    pos: 3
+  - name: Safari
+    path: '/Applications/Safari.app/'
+    pos: 4
   - name: Google Chrome
     path: '/Applications/Google Chrome.app/'
-    pos: 4
+    pos: 5
   - name: Firefox
     path: '/Applications/Firefox.app/'
-    pos: 5
+    pos: 6
   - name: Visual Studio Code
     path: '/Applications/Visual Studio Code.app/'
     pos: 7
-  - name: Terminal
-    path: '/Applications/Terminal.app/'
+  - name: iTerm
+    path: '/Applications/iterm.app/'
     pos: 8
   - name: Music
     path: '/Applications/Music.app/'

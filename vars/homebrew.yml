@@ -18,5 +18,6 @@ homebrew_cask_apps:
   - slack
   - zoom
   - 1password
-  # - docker
+  - iterm2
+  - docker
 homebrew_upgrade_all_packages: true
