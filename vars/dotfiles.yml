@@ -8,4 +8,5 @@ dotfiles_home: '~'
 dotfiles_files:
   - .zshrc
   - .vimrc
+  - .gitconfig
 # - .gitignore
