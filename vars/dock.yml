@@ -15,6 +15,7 @@ dockitems_remove:
   - Contacts
   - FaceTime
   - Terminal
+  - System Preferences
 dockitems_persist:
   - name: Mail
     path: '/Applications/Mail.app/'
