@@ -1,14 +1,50 @@
 ---
-- name: Ensure VSCode directory exists.
+- name: Check vscode directory exists.
   stat:
     path: '{{ vscode_installation_path }}'
+  register: vscode_check
 
-# TODO: Find a way to check for existing extensions
+- name: Ensure vscode is installed
+  fail:
+    msg: 'vscode could not be found in {{ vscode_installation_path }}'
+  when: not vscode_check.stat.exists
 
+- name: Check 'code' command line tool exists or is in PATH.
+  shell:
+    cmd: code --version
+  register: code_check
+
+- name: Ensure 'code' command line tool is installed
+  fail:
+    msg: 'code could not be found in your PATH'
+  when: code_check.failed
+
+# - name: Check if vscode extension exists
+#   stat:
+#     path: '{{ vscode_extension_path }}/{{ item }}'
+#   register: vscode_extensions
+#   with_items: '{{ vscode_extensions }}'
+
+# - name: Check latest vscode extension version
+#   uri:
+#     body_format: raw
+#     return_content: true
+#     url: 'https://marketplace.visualstudio.com/items?itemName={{ item }}'
+#   with_items: '{{ vscode_extensions }}'
+#   register: extensions
+
+# - name: Evaluate latest versions of the vscode extensions
+#   set_fact:
+#     vscode_latest_extensions:
+#       '{{ vscode_latest_extensions + [ item |
+#       regex_search("VersionValue":.*([0-9]+\.[0-9]+\.[0-9]).*, ignoreCase=True,
+#       multiline=True,) | last]'
+#   with_items: '{{ extensions }}'
+
+# - debug: var=vscode_latest_extensions
 - name: Install visual studio code extensions
-  command: 'code --install-extension {{ item }}'
-  loop: '{{ vscode_extensions }}'
-  ignore_errors: true
+  command: 'code --install-extension {{ item.item }}'
+  with_items: '{{ vscode_extensions.results }}'
 
 - name: Include visual studio code settings
   copy:
