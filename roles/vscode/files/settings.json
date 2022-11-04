@@ -72,8 +72,13 @@
       "no-debugger": "off"
     }
   },
-  "terminal.integrated.profiles.osx": {},
   "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.profiles.osx": {
+    "zsh": {
+      "path": "/bin/zsh"
+    }
+  },
   "explorer.openEditors.visible": 0,
   "editor.lineNumbers": "on",
   "workbench.colorTheme": "In Bed by 7pm",
