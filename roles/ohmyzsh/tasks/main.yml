@@ -54,3 +54,8 @@
     remote_src: true
     keep_newer: true
     validate_certs: false
+
+- name: Download Dracula iTerm theme
+  copy:
+    src: 'files/dracula.json'
+    dest: '~/Library/Application Support/iTerm2/DynamicProfiles/'
