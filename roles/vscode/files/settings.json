@@ -11,7 +11,6 @@
   "editor.wordBasedSuggestions": false,
   "editor.suggest.localityBonus": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "enitor.acceptSuggestionOnEnter": "off",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.suggestSelection": "recentlyUsed",
@@ -55,23 +54,6 @@
     "typescript",
     "typescriptreact"
   ],
-  "eslint.options": {
-    "env": {
-      "browser": true,
-      "jest/globals": true,
-      "es6": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 2019,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "no-debugger": "off"
-    }
-  },
   "terminal.integrated.scrollback": 10000,
   "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.profiles.osx": {
@@ -98,7 +80,6 @@
   "npm.runSilent": true,
   "gulp.autoDetect": "off",
   "explorer.confirmDragAndDrop": false,
-  "atomKeymap.promptV3Features": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.formatOnPaste": false,
   "window.zoomLevel": 1,
@@ -131,5 +112,7 @@
   "editor.acceptSuggestionOnEnter": "off",
   "editor.tokenColorCustomizations": {
     "textMateRules": []
-  }
+  },
+  "prettier.requireConfig": true,
+  "eslint.useESLintClass": true
 }

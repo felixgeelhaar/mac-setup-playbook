@@ -12,6 +12,7 @@ homebrew_installed_packages:
   # I might want to exclude those to separate installations due to improved usage
   - go
   - rust
+  - php  
 homebrew_cask_apps:
   - firefox
   - google-chrome
@@ -20,5 +21,6 @@ homebrew_cask_apps:
   - zoom
   - 1password
   - iterm2
+  - discord
   - docker
 homebrew_upgrade_all_packages: true
