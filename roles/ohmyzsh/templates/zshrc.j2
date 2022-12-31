@@ -7,40 +7,40 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="{{ ohmyzsh_config.theme }}"
+ZSH_THEME="{{ ohmyzsh_theme }}"
 
 # Set to this to use case-sensitive completion
-CASE_SENSITIVE="{{ ohmyzsh_config.case_sensitive|to_nice_json }}"
+CASE_SENSITIVE="{{ ohmyzsh_case_sensitive|to_nice_json }}"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="{{ ohmyzsh_config.hyphen_insensitive|to_nice_json }}"
+HYPHEN_INSENSITIVE="{{ ohmyzsh_hyphen_insensitive|to_nice_json }}"
 
 # Uncomment this to disable update prompt
-DISABLE_UPDATE_PROMPT="{{ ohmyzsh_config.disable_update_prompt|to_nice_json }}"
+DISABLE_UPDATE_PROMPT="{{ ohmyzsh_disable_update_prompt|to_nice_json }}"
 
 # Uncomment this to disable bi-weekly auto-update checks
-DISABLE_AUTO_UPDATE="{{ ohmyzsh_config.disable_auto_update|to_nice_json }}"
+DISABLE_AUTO_UPDATE="{{ ohmyzsh_disable_auto_update|to_nice_json }}"
 
 # Uncomment to change how often before auto-updates occur? (in days)
-export UPDATE_ZSH_DAYS={{ ohmyzsh_config.update_days }}
+export UPDATE_ZSH_DAYS={{ ohmyzsh_update_days }}
 
 # Uncomment following line if you want to disable colors in ls
-DISABLE_LS_COLORS="{{ ohmyzsh_config.disable_ls_colors|to_nice_json }}"
+DISABLE_LS_COLORS="{{ ohmyzsh_disable_ls_colors|to_nice_json }}"
 
 # Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE="{{ ohmyzsh_config.disable_auto_title|to_nice_json }}"
+DISABLE_AUTO_TITLE="{{ ohmyzsh_disable_auto_title|to_nice_json }}"
 
 # Uncomment following line if you want to disable command autocorrection
-DISABLE_CORRECTION="{{ ohmyzsh_config.disable_correction|to_nice_json }}"
+DISABLE_CORRECTION="{{ ohmyzsh_disable_correction|to_nice_json }}"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="{{ ohmyzsh_config.completion_waiting_dots|to_nice_json }}"
+COMPLETION_WAITING_DOTS="{{ ohmyzsh_completion_waiting_dots|to_nice_json }}"
 
 # Uncomment following line if you want to disable marking untracked files under
 # VCS as dirty. This makes repository status check for large repositories much,
 # much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="{{ ohmyzsh_config.disable_untracked_files_dirty|to_nice_json }}"
+DISABLE_UNTRACKED_FILES_DIRTY="{{ ohmyzsh_disable_untracked_files_dirty|to_nice_json }}"
 
 # Uncomment following line if you want to  shown in the command execution time stamp
 # in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
@@ -48,12 +48,12 @@ DISABLE_UNTRACKED_FILES_DIRTY="{{ ohmyzsh_config.disable_untracked_files_dirty|t
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM={{ ohmyzsh_config.custom }}
+ZSH_CUSTOM={{ ohmyzsh_custom }}
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=({{ ohmyzsh_config.plugins }})
+plugins=({{ ohmyzsh_plugins }})
 
 # User configuration
 
@@ -95,14 +95,14 @@ bindkey '^[[B' history-substring-search-down
 source ${ZSH_CUSTOM}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Add additional paths to $PATH
-export PATH = {{ ohmyzsh_config.plugins|default("") }}:$PATH
+export PATH={{ ohmyzsh_path|default("") }}:$PATH
 
-{% if ohmyzsh_config.starship == true %}
+{% if ohmyzsh_starship == true %}
 # Initiatlization of starship
 eval "$(starship init zsh)"
 {% endif %}
 
-{% if ohmyzsh_config.nvm == true %}
+{% if ohmyzsh_nvm == true %}
 # Load NVM 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

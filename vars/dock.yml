@@ -14,7 +14,6 @@ dockitems_remove:
   - Messages
   - Contacts
   - FaceTime
-  - Terminal
   - System Preferences
 dockitems_persist:
   - name: Mail
@@ -35,8 +34,8 @@ dockitems_persist:
   - name: Visual Studio Code
     path: '/Applications/Visual Studio Code.app/'
     pos: 7
-  - name: iTerm
-    path: '/Applications/iterm.app/'
+  - name: Terminal
+    path: '/Applications/Terminal.app/'
     pos: 8
   - name: Music
     path: '/Applications/Music.app/'

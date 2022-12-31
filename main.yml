@@ -8,6 +8,7 @@
     - vars/homebrew.yml
     - vars/dotfiles.yml
     - vars/dock.yml
+    - vars/ohmyzsh.yml
 
   # List extra variables, if necessary
   # vars:
@@ -21,5 +22,5 @@
     - geerlingguy.mac.dock
     - geerlingguy.dotfiles
     - vscode
-    - ohmyzsh
     - terminal
+    - ohmyzsh

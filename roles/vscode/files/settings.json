@@ -21,7 +21,7 @@
     "editor.suggestSelection": "recentlyUsed",
     "editor.suggest.showKeywords": false
   },
-  "editor.fontSize": 14,
+  "editor.fontSize": 12,
   "editor.tabSize": 2,
   "editor.hover.enabled": true,
   "editor.renderWhitespace": "boundary",
@@ -114,5 +114,6 @@
     "textMateRules": []
   },
   "prettier.requireConfig": true,
-  "eslint.useESLintClass": true
+  "eslint.useESLintClass": true,
+  "terminal.integrated.fontFamily": "\"FiraCode Nerd Font Mono\""
 }
