@@ -1,0 +1,33 @@
+---
+- name: Create starship.toml
+  shell: |
+    mkdir ~/.config
+    touch ~/.config/starship.toml
+
+- name: Activate starship visuals
+  shell: starship preset nerd-font-symbols > ~/.config/starship.toml
+
+- name: Get latest Fira Code Font Release
+  uri:
+    url: 'https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest'
+    return_content: true
+    validate_certs: false
+  register: fira_code
+
+- name: Install Fira Code Font {{ fira_code.json.tag_name }}
+  unarchive:
+    src:
+      'https://github.com/ryanoasis/nerd-fonts/releases/download/{{
+      fira_code.json.tag_name }}/FiraCode.zip'
+    dest: '~/Library/Fonts'
+    remote_src: true
+    keep_newer: true
+    validate_certs: false
+    
+# - name: Activate zsh
+#   become: true
+#   user:
+#     name: '{{ ansible_user_id }}'
+#     shell: |
+#       /bin/zsh
+#       source ~/.zshrc

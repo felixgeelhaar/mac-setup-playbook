@@ -8,7 +8,6 @@ homebrew_installed_packages:
   - tmux
   - gh
   - nvim
-  - tig
   # I might want to exclude those to separate installations due to improved usage
   - go
   - rust
@@ -20,7 +19,6 @@ homebrew_cask_apps:
   - slack
   - zoom
   - 1password
-  - iterm2
   - discord
   - docker
 homebrew_upgrade_all_packages: true
