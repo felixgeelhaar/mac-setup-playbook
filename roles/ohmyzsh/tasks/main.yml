@@ -25,4 +25,4 @@
   template:
     src: "zshrc.j2"
     dest: "{{ ansible_env.HOME + '/.zshrc' }}"
-    backup: yes
+    backup: true

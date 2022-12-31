@@ -22,4 +22,4 @@ gitconfig_pull_rebase: true
 gitconfig_merge_tool: "kdiff3"
 gitconfig_difftool_prompt: false
 
-gitconfig_alias:
+gitconfig_alias: []

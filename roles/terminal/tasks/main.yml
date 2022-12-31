@@ -23,7 +23,7 @@
     remote_src: true
     keep_newer: true
     validate_certs: false
-    
+
 # - name: Activate zsh
 #   become: true
 #   user:
