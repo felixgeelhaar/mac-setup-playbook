@@ -36,7 +36,7 @@
     touch ~/.config/starship.toml
 
 - name: Activate starship visuals
-  shell: starship preset bracketed-segments > ~/.config/starship.toml
+  shell: starship preset nerd-font-symbols > ~/.config/starship.toml
 
 - name: Get latest Fira Code Font Release
   uri:
