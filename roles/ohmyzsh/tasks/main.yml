@@ -22,14 +22,6 @@
     repo: 'https://github.com/zsh-users/zsh-autosuggestions'
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-- name: Activate zsh
-  become: true
-  user:
-    name: '{{ ansible_user_id }}'
-    shell: |
-      /bin/zsh
-      source ~/.zshrc
-
 - name: Create starship.toml
   shell: |
     mkdir ~/.config
@@ -59,3 +51,11 @@
   copy:
     src: 'files/dracula.json'
     dest: '~/Library/Application Support/iTerm2/DynamicProfiles/'
+    
+- name: Activate zsh
+  become: true
+  user:
+    name: '{{ ansible_user_id }}'
+    shell: |
+      /bin/zsh
+      source ~/.zshrc
