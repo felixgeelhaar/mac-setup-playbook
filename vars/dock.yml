@@ -35,7 +35,7 @@ dockitems_persist:
     path: '/Applications/Visual Studio Code.app/'
     pos: 7
   - name: Terminal
-    path: '/Applications/Terminal.app/'
+    path: '/Applications/Utilities/Terminal.app/'
     pos: 8
   - name: Music
     path: '/Applications/Music.app/'

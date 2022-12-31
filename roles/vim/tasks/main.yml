@@ -1,0 +1,6 @@
+---
+- name: Configuring vim
+  template:
+    src: "vimrc.j2"
+    dest: "{{ ansible_env.HOME + '/.vimrc' }}"
+    backup: yes

@@ -6,9 +6,9 @@
     - vars/vscode.yml
     - vars/mas.yml
     - vars/homebrew.yml
-    - vars/dotfiles.yml
     - vars/dock.yml
     - vars/ohmyzsh.yml
+    - vars/gitconfig.yml
 
   # List extra variables, if necessary
   # vars:
@@ -20,7 +20,8 @@
     - geerlingguy.mac.homebrew
     - geerlingguy.mac.mas
     - geerlingguy.mac.dock
-    - geerlingguy.dotfiles
     - vscode
     - terminal
     - ohmyzsh
+    - gitconfig
+    - vim
