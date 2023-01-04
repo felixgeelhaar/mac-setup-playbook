@@ -5,6 +5,7 @@ gitconfig_user_email: "<your e-mail>"
 gitconfig_core_editor: "vim"
 gitconfig_core_excludes_files: "~/.gitignore"
 gitconfig_core_autocrlf: "input"
+gitconfig_core_signingkey: ""
 
 gitconfig_color_branch: "auto"
 gitconfig_color_diff: "auto"

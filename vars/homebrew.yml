@@ -9,6 +9,7 @@ homebrew_installed_packages:
   - gh
   - nvim
   - tig
+  - gpg
   # I might want to exclude those to separate installations due to improved usage
   - go
   - rust
