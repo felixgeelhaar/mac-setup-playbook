@@ -115,5 +115,5 @@
   },
   "prettier.requireConfig": true,
   "eslint.useESLintClass": true,
-  "terminal.integrated.fontFamily": "\"FiraCode Nerd Font Mono\""
+  "terminal.integrated.fontFamily": "\"Fira Code\""
 }

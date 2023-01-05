@@ -4,7 +4,6 @@ homebrew_installed_packages:
   - node
   - nvm
   - kubectl
-  - starship
   - tmux
   - gh
   - nvim
@@ -14,13 +13,13 @@ homebrew_installed_packages:
   - go
   - rust
   - php
-homebrew_cask_apps:
-  - firefox
-  - google-chrome
-  - visual-studio-code
-  - slack
-  - zoom
-  - 1password
-  - discord
-  - docker
+# homebrew_cask_apps:
+#   - firefox
+#   - google-chrome
+#   - visual-studio-code
+#   - slack
+#   - zoom
+#   - 1password
+#   - discord
+#   - docker
 homebrew_upgrade_all_packages: true
