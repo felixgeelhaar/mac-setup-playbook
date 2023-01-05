@@ -17,6 +17,10 @@
   browser = {{ gitconfig_web_browser }}
 [credential]
   helper = {{ gitconfig_credential_helper }}
+[pull]
+	rebase = {{ gitconfig_pull_rebase }}
+[commit]
+  gpgSign = {{ gitconfig_commit_gpgSign }}
 [push]
   default = {{ gitconfig_push_default }}
 [merge]
@@ -27,7 +31,3 @@
   {% for alias in gitconfig_alias %}
     {{ alias }}
   {% endfor %}
-[pull]
-	rebase = {{ gitconfig_pull_rebase }}
-[commit]
-  gpgSign = false

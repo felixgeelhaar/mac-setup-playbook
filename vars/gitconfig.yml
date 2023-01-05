@@ -11,4 +11,5 @@ gitconfig_alias:
   - d = diff
   - dc = diff --cached
   - l = log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
-  
+gitconfig_commit_gpgSign: true
+# gitconfig_core_signingkey: <your key here>
