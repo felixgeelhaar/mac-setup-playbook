@@ -97,16 +97,11 @@ source ${ZSH_CUSTOM}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Add additional paths to $PATH
 export PATH={{ ohmyzsh_path|default("") }}:$PATH
 
-{% if ohmyzsh_starship == true %}
-# Initiatlization of starship
-eval "$(starship init zsh)"
-{% endif %}
-
 {% if ohmyzsh_nvm == true %}
 # Load NVM 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 {% endif %}
 
-% Enable GPG Signing
+# Enable GPG Signing
 export GPG_TTY=$(tty)
