@@ -1,11 +1,17 @@
 [user]
   name = {{ gitconfig_user_full_name }}
   email = {{ gitconfig_user_email }}
+  {% if gitconfig_core_signingkey is defined %}
+  signingkey={{ gitconfig_core_signingkey }}
+  { % endif %}
 [core]
   editor = {{ gitconfig_core_editor }}
   excludesfile = {{ gitconfig_core_excludes_files }}
   autocrlf = {{ gitconfig_core_autocrlf }}
-  signingkey={{ gitconfig_core_signingkey}}
+{% if gitconfig_gpg_program is defined %}
+[gpg]
+  program = {{ gitconfig_gpg_program }}
+{% endif %}
 [color]
   branch = {{ gitconfig_color_branch }}
   diff = {{ gitconfig_color_diff }}
