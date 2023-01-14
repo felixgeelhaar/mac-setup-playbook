@@ -12,4 +12,5 @@ ohmyzsh_disable_untracked_files_dirty: false
 ohmyzsh_custom: "$ZSH/custom"
 ohmyzsh_plugins: "git zsh-history-substring-search zsh-autosuggestions"
 ohmyzsh_nvm: false
-ohmyzsh_starship: false
+ohmyzsh_gpg: false
+
