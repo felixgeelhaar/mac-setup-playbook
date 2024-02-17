@@ -31,8 +31,8 @@ dockitems_persist:
   - name: Firefox
     path: '/Applications/Firefox.app/'
     pos: 6
-  - name: Visual Studio Code
-    path: '/Applications/Visual Studio Code.app/'
+  - name: iTerm2
+    path: '/Applications/iterm2.app/'
     pos: 7
   - name: Terminal
     path: '/Applications/Utilities/Terminal.app/'

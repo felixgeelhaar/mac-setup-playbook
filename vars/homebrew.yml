@@ -6,20 +6,23 @@ homebrew_installed_packages:
   - kubectl
   - tmux
   - gh
-  - nvim
-  - tig
+  - neovim
   - gpg2
   # I might want to exclude those to separate installations due to improved usage
   - go
   - rust
   - php
+  - python
+  # Install Hack Nerd Font
+  - font-hack-nerd-font
 homebrew_cask_apps:
   - firefox
   - google-chrome
-  - visual-studio-code
   - slack
   - zoom
   - 1password
   - discord
   - docker
+  - obsidian
+  - iterm
 homebrew_upgrade_all_packages: true

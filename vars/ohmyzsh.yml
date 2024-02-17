@@ -1,5 +1,5 @@
 ---
-ohmyzsh_theme: "spaceship"
+ohmyzsh_theme: "powerlevel10k/powerlevel10k"
 ohmyzsh_plugins: "gh brew history minikube kubectl helm node npm yarn nvm python pip golang rust flutter docker ansible terraform vagrant vscode xcode tmux httpie zsh-history-substring-search zsh-autosuggestions"
 ohmyzsh_path: "$HOME/Library/Python/3.9/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin"
 ohmyzsh_nvm: true
