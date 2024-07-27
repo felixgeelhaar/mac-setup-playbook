@@ -1,10 +1,9 @@
----
 configure_dock: true
 dockitems_remove:
   - Launchpad
   - TV
   - Podcasts
-  - 'App Store'
+  - "App Store"
   - Maps
   - Reminders
   - Notes
@@ -17,26 +16,26 @@ dockitems_remove:
   - System Preferences
 dockitems_persist:
   - name: Mail
-    path: '/Applications/Mail.app/'
+    path: "/Applications/Mail.app/"
     pos: 2
   - name: Calendar
-    path: '/Applications/Calendar.app/'
+    path: "/Applications/Calendar.app/"
     pos: 3
   - name: Safari
-    path: '/Applications/Safari.app/'
+    path: "/Applications/Safari.app/"
     pos: 4
   - name: Google Chrome
-    path: '/Applications/Google Chrome.app/'
+    path: "/Applications/Google Chrome.app/"
     pos: 5
   - name: Firefox
-    path: '/Applications/Firefox.app/'
+    path: "/Applications/Firefox.app/"
     pos: 6
   - name: iTerm2
-    path: '/Applications/iterm2.app/'
+    path: "/Applications/iterm2.app/"
     pos: 7
-  - name: Terminal
-    path: '/Applications/Utilities/Terminal.app/'
+  - name: Obsidian
+    path: "/Applications/Obsidian.app"
     pos: 8
   - name: Music
-    path: '/Applications/Music.app/'
+    path: "/Applications/Music.app/"
     pos: 9

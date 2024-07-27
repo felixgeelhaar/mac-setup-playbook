@@ -2,7 +2,7 @@
 gitconfig_user_full_name: "<your name>"
 gitconfig_user_email: "<your e-mail>"
 
-gitconfig_core_editor: "vim"
+gitconfig_core_editor: "nvim"
 gitconfig_core_excludes_files: "~/.gitignore"
 gitconfig_core_autocrlf: "input"
 gitconfig_core_signingkey: ""

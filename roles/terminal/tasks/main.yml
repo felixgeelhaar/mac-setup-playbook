@@ -1,7 +1,4 @@
----
-
 - name: Install powerlevel10k
   git:
     repo: "https://gitee.com/romkatv/powerlevel10k.git"
     dest: "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-

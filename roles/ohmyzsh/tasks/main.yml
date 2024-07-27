@@ -3,7 +3,7 @@
   git:
     repo: "https://github.com/robbyrussell/oh-my-zsh.git"
     dest: "{{ ansible_env.HOME + '/.oh-my-zsh' }}"
-    update: yes
+    update: true 
 
 - name: Installing zsh-history-substring-search
   git:

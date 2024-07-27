@@ -1,4 +1,3 @@
----
 homebrew_installed_packages:
   - mysql
   - node
@@ -7,14 +6,30 @@ homebrew_installed_packages:
   - tmux
   - gh
   - neovim
-  - gpg2
-  # I might want to exclude those to separate installations due to improved usage
+  - gpg
+  - pinentry-mac
   - go
   - rust
   - php
   - python
-  # Install Hack Nerd Font
   - font-hack-nerd-font
+  - argocd
+  - composer
+  - curl
+  - delve
+  - docker
+  - docker-completions
+  - httpie
+  - jq
+  - lazygit
+  - make
+  - minikube
+  - nvm
+  - nmap
+  - ripgrep
+  - tmux-mem-cpu-load
+  - zsh-autosuggestions
+  - zsh-syntax-highlighting
 homebrew_cask_apps:
   - firefox
   - google-chrome
@@ -25,4 +40,8 @@ homebrew_cask_apps:
   - docker
   - obsidian
   - iterm
+  - figma
+  - monitorcontrol
+  - ollama
+  - miniconda
 homebrew_upgrade_all_packages: true
