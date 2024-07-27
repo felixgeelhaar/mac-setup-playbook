@@ -30,6 +30,8 @@ homebrew_installed_packages:
   - tmux-mem-cpu-load
   - zsh-autosuggestions
   - zsh-syntax-highlighting
+  - stow
+  - tree-sitter
 homebrew_cask_apps:
   - firefox
   - google-chrome
