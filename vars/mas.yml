@@ -1,9 +1,11 @@
----
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
-  - {id: 497799835, name: 'XCode'}
-  - {id: 1569813296, name: '1Password for Safari'}
-  - {id: 409201541, name: 'Pages'}
-  - {id: 409183694, name: 'Keynote'}
-  - {id: 409203825, name: 'Numbers'}
+  - {id: 497799835, name: "XCode"}
+  - {id: 1569813296, name: "1Password for Safari"}
+  - {id: 409201541, name: "Pages"}
+  - {id: 409183694, name: "Keynote"}
+  - {id: 409203825, name: "Numbers"}
+  - {id: 409183694, name: "Affinity Publisher"}
+  - {id: 409203825, name: "Affinity Designer"}
+  - {id: 409203825, name: "Affinity Photo"}

@@ -1,28 +1,10 @@
----
 - name: Installing oh-my-zsh
   git:
     repo: "https://github.com/robbyrussell/oh-my-zsh.git"
     dest: "{{ ansible_env.HOME + '/.oh-my-zsh' }}"
-    update: true 
-
-- name: Installing zsh-history-substring-search
-  git:
-    repo: 'https://github.com/zsh-users/zsh-history-substring-search'
-    dest: ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
-
-- name: Installing zsh-autosuggestions
-  git:
-    repo: 'https://github.com/zsh-users/zsh-autosuggestions'
-    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-
+    update: true
 - name: Setting default shell
   become: true
   shell: "chsh -s $(which zsh) {{ ansible_user_id }}"
   register: chsh_result
   changed_when: "'chsh: no changes made' not in chsh_result.stderr"
-
-- name: Configuring oh-my-zsh
-  template:
-    src: "zshrc.j2"
-    dest: "{{ ansible_env.HOME + '/.zshrc' }}"
-    backup: true

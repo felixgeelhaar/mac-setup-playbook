@@ -20,7 +20,4 @@ roles:
 - { role: geerlingguy.mac.mas }
 - { role: geerlingguy.mac.dock }
 - { role: geerlingguy.dotfiles }
-- terminal
 - ohmyzsh
-- vim
-- gitconfig

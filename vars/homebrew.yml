@@ -1,50 +1,50 @@
 homebrew_installed_packages:
-  - mysql
-  - node
-  - nvm
-  - kubectl
+  - zsh-syntax-highlighting
+  - zsh-autosuggestions
+  - stow
   - tmux
-  - gh
+  - tmux-mem-cpu-load
   - neovim
+  - lazygit
   - gpg
   - pinentry-mac
+  - delve
+  - nmap
+  - ripgrep
+  - tree-sitter
+  - make
+  - curl
+  - gh
+  - node
+  - nvm
   - go
   - rust
   - php
+  - composer
   - python
   - lua
-  - argocd
-  - composer
-  - curl
-  - delve
   - docker
   - docker-completions
   - httpie
   - jq
-  - lazygit
-  - make
+  - kubectl
   - minikube
-  - nvm
-  - nmap
-  - ripgrep
-  - font-hack-nerd-font
-  - tmux-mem-cpu-load
-  - zsh-autosuggestions
-  - zsh-syntax-highlighting
-  - stow
-  - tree-sitter
+  - argocd
 homebrew_cask_apps:
+  - wezterm
+  - monitorcontrol
+  - ollama
+  - elgato-camera-hub
+  - elgato-control-center
+  - elgator-stream-deck
   - firefox
   - google-chrome
+  - discord
   - slack
   - zoom
   - 1password
-  - discord
   - docker
   - obsidian
-  - iterm
   - figma
-  - monitorcontrol
-  - ollama
   - miniconda
 homebrew_upgrade_all_packages: true

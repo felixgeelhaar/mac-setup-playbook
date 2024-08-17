@@ -30,8 +30,8 @@ dockitems_persist:
   - name: Firefox
     path: "/Applications/Firefox.app/"
     pos: 6
-  - name: iTerm2
-    path: "/Applications/iterm2.app/"
+  - name: Wezterm
+    path: "/Applications/WezTerm.app"
     pos: 7
   - name: Obsidian
     path: "/Applications/Obsidian.app"
