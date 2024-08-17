@@ -1,0 +1,15 @@
+- name: Mac Setup Playbook
+  hosts: all
+- vars_files:
+    - vars/homebrew.yml
+    - vars/dotfiles.yml
+    - vars/mas.yml
+    - vars/dock.yml
+  roles:
+    - role: elliotweiser.osx-command-line-tools
+    - role: geerlingguy.mac.homebrew
+    - role: geerlingguy.mac.mas
+    - role: geerlingguy.mac.dock
+    - role: geerlingguy.dotfiles
+  tasks:
+    - import_tasks: tasks/dotfiles.yml

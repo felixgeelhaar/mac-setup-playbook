@@ -1,4 +1,6 @@
 roles:
   - name: elliotweiser.osx-command-line-tools
-collections:
-  - name: geerlingguy.mac
+  - name: geerlingguy.dotfiles
+  - name: geerlingguy.mac.homebrew
+  - name: geerlingguy.mac.mas
+  - name: geerlingguy.mac.dock

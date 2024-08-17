@@ -1,0 +1,12 @@
+- name: Find dotfiles directory
+  stat:
+    path: "{{dotfiles_repo_local_destination}}"
+  register: dotfiles_folder
+- name: List dotfiles configuration directories
+  command: "ls {{dotfiles_repo_local_destination}}"
+  register: dirs
+  when: dotfiles_folder.stat.exists
+- name: Iterate over directories and stow them
+  command: "stow {{item}}"
+  with_items: dirs.stdout_lines
+  when: dotfiles_folder.stat.exists
