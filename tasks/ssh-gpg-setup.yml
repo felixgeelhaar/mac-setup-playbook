@@ -36,7 +36,7 @@
 
     - name: Generate SSH key pair
       ansible.builtin.shell: |
-        ssh-keygen -t ed25519 -C "{{ ansible_user_id }}@{{ ansible_hostname }}" -f {{ ansible_env.HOME }}/.ssh/id_ed25519 -N ""
+        ssh-keygen -t ed25519 -C "{{ ansible_user_id }}@{{ ansible_hostname }}" -f "{{ ansible_env.HOME }}/.ssh/id_ed25519" -N ""
       when: not ssh_key_exists.stat.exists
 
     - name: Add SSH key to SSH agent
