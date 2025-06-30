@@ -1,0 +1,172 @@
+---
+- name: Setup SSH and GPG keys
+  block:
+    # SSH Configuration
+    - name: Create SSH directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.ssh"
+        state: directory
+        mode: '0700'
+
+    - name: Create SSH config file
+      ansible.builtin.copy:
+        content: |
+          Host *
+            AddKeysToAgent yes
+            UseKeychain yes
+            IdentityFile ~/.ssh/id_ed25519
+
+          Host github.com
+            HostName github.com
+            User git
+            IdentityFile ~/.ssh/id_ed25519
+
+          Host gitlab.com
+            HostName gitlab.com
+            User git
+            IdentityFile ~/.ssh/id_ed25519
+        dest: "{{ ansible_env.HOME }}/.ssh/config"
+        mode: '0644'
+        backup: true
+
+    - name: Check if SSH key exists
+      ansible.builtin.stat:
+        path: "{{ ansible_env.HOME }}/.ssh/id_ed25519"
+      register: ssh_key_exists
+
+    - name: Generate SSH key pair
+      ansible.builtin.shell: |
+        ssh-keygen -t ed25519 -C "{{ ansible_user_id }}@{{ ansible_hostname }}" -f {{ ansible_env.HOME }}/.ssh/id_ed25519 -N ""
+      when: not ssh_key_exists.stat.exists
+
+    - name: Add SSH key to SSH agent
+      ansible.builtin.shell: |
+        eval "$(ssh-agent -s)"
+        ssh-add --apple-use-keychain {{ ansible_env.HOME }}/.ssh/id_ed25519
+      when: not ssh_key_exists.stat.exists
+      ignore_errors: true
+
+    - name: Display SSH public key
+      ansible.builtin.command: cat {{ ansible_env.HOME }}/.ssh/id_ed25519.pub
+      register: ssh_public_key
+      when: not ssh_key_exists.stat.exists
+
+    - name: Show SSH public key for GitHub/GitLab
+      ansible.builtin.debug:
+        msg: |
+          SSH key generated! Add this public key to your GitHub/GitLab account:
+          {{ ssh_public_key.stdout }}
+      when: not ssh_key_exists.stat.exists and ssh_public_key is defined
+
+    # GPG Configuration
+    - name: Create GPG directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.gnupg"
+        state: directory
+        mode: '0700'
+
+    - name: Create GPG agent configuration
+      ansible.builtin.copy:
+        content: |
+          pinentry-program /opt/homebrew/bin/pinentry-mac
+          default-cache-ttl 3600
+          max-cache-ttl 86400
+          enable-ssh-support
+        dest: "{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf"
+        mode: '0600'
+        backup: true
+
+    - name: Create GPG configuration
+      ansible.builtin.copy:
+        content: |
+          keyserver hkps://keys.openpgp.org
+          keyserver-options auto-key-retrieve
+          use-agent
+          armor
+        dest: "{{ ansible_env.HOME }}/.gnupg/gpg.conf"
+        mode: '0600'
+        backup: true
+
+    - name: Set GPG_TTY in shell profile
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        line: "{{ item }}"
+        create: true
+      loop:
+        - 'export GPG_TTY=$(tty)'
+        - 'export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)'
+        - 'gpgconf --launch gpg-agent'
+
+    - name: Check if GPG key exists
+      ansible.builtin.shell: gpg --list-secret-keys --keyid-format LONG
+      register: gpg_keys_check
+      failed_when: false
+      changed_when: false
+
+    - name: Generate GPG key batch file
+      ansible.builtin.copy:
+        content: |
+          %echo Generating GPG key
+          Key-Type: RSA
+          Key-Length: 4096
+          Subkey-Type: RSA
+          Subkey-Length: 4096
+          Name-Real: {{ ansible_user_id }}
+          Name-Email: {{ ansible_user_id }}@example.com
+          Expire-Date: 2y
+          Passphrase: 
+          %commit
+          %echo Done
+        dest: "{{ ansible_env.HOME }}/gpg-batch.txt"
+        mode: '0600'
+      when: gpg_keys_check.stdout == ""
+
+    - name: Generate GPG key
+      ansible.builtin.shell: gpg --batch --generate-key {{ ansible_env.HOME }}/gpg-batch.txt
+      when: gpg_keys_check.stdout == ""
+      register: gpg_generate_result
+
+    - name: Remove GPG batch file
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/gpg-batch.txt"
+        state: absent
+      when: gpg_keys_check.stdout == ""
+
+    - name: Get GPG key ID
+      ansible.builtin.shell: gpg --list-secret-keys --keyid-format LONG | grep sec | head -1 | awk '{print $2}' | cut -d'/' -f2
+      register: gpg_key_id
+      when: gpg_keys_check.stdout == "" or gpg_generate_result is defined
+
+    - name: Export GPG public key
+      ansible.builtin.shell: gpg --armor --export {{ gpg_key_id.stdout }}
+      register: gpg_public_key
+      when: gpg_key_id is defined and gpg_key_id.stdout != ""
+
+    - name: Show GPG public key for GitHub
+      ansible.builtin.debug:
+        msg: |
+          GPG key generated! Add this public key to your GitHub account:
+          {{ gpg_public_key.stdout }}
+          
+          Also run: git config --global user.signingkey {{ gpg_key_id.stdout }}
+          And: git config --global commit.gpgsign true
+      when: gpg_public_key is defined and gpg_public_key.stdout != ""
+
+    # GitHub CLI setup
+    - name: Check if GitHub CLI is authenticated
+      ansible.builtin.shell: gh auth status
+      register: gh_auth_status
+      failed_when: false
+      changed_when: false
+
+    - name: Display GitHub CLI authentication message
+      ansible.builtin.debug:
+        msg: |
+          GitHub CLI is not authenticated. After the playbook completes, run:
+          gh auth login
+          
+          This will allow you to:
+          - Clone repositories via HTTPS/SSH
+          - Create and manage repositories
+          - Work with issues and pull requests
+      when: gh_auth_status.rc != 0

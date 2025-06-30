@@ -1,6 +1,9 @@
+---
 - name: Mac Setup Playbook
   hosts: all
-- vars_files:
+  connection: local
+  gather_facts: false
+  vars_files:
     - vars/homebrew.yml
     - vars/dotfiles.yml
     - vars/mas.yml
@@ -13,3 +16,7 @@
     - role: geerlingguy.dotfiles
   tasks:
     - import_tasks: tasks/dotfiles.yml
+    - import_tasks: tasks/macos-preferences.yml
+    - import_tasks: tasks/dev-environments.yml
+    - import_tasks: tasks/ssh-gpg-setup.yml
+    - import_tasks: tasks/validation.yml

@@ -1,50 +1,119 @@
+---
 homebrew_installed_packages:
+  # Shell and Terminal
   - zsh-syntax-highlighting
   - zsh-autosuggestions
   - stow
   - tmux
   - tmux-mem-cpu-load
+  - starship
+  - fzf
+  - bat
+  - eza
+  - fd
+  
+  # Development Tools
   - neovim
   - lazygit
-  - gpg
-  - pinentry-mac
-  - delve
-  - nmap
-  - ripgrep
-  - tree-sitter
+  - git-delta
+  - gh
   - make
   - curl
-  - gh
+  - wget
+  - ripgrep
+  - tree-sitter
+  - jq
+  - yq
+  - httpie
+  
+  # Programming Languages
   - node
   - nvm
   - go
   - rust
+  - python
+  - python@3.12
+  - lua
   - php
   - composer
-  - python
-  - lua
+  
+  # Database Tools
+  - postgresql
+  - redis
+  - sqlite
+  
+  # Container and DevOps
   - docker
   - docker-completions
-  - httpie
-  - jq
   - kubectl
   - minikube
+  - helm
+  - terraform
   - argocd
+  
+  # Security and Crypto
+  - gpg
+  - pinentry-mac
+  - age
+  - sops
+  
+  # Network and Debug Tools
+  - nmap
+  - delve
+  - wireshark
+  - tcpdump
+  
+  # Build Tools
+  - cmake
+  - ninja
+  - pkg-config
 homebrew_cask_apps:
+  # Terminal and Development
   - wezterm
-  - monitorcontrol
-  - ollama
-  - elgato-camera-hub
-  - elgato-control-center
-  - elgator-stream-deck
+  - visual-studio-code
+  - docker
+  - figma
+  - postman
+  
+  # Browsers
   - firefox
   - google-chrome
+  - arc
+  
+  # Communication
   - discord
   - slack
   - zoom
-  - 1password
-  - docker
+  - telegram
+  
+  # Productivity
   - obsidian
-  - figma
+  - notion
+  - rectangle
+  - alfred
+  - raycast
+  
+  # System Utilities  
+  - monitorcontrol
+  - cleanmymac
+  - the-unarchiver
+  - appcleaner
+  
+  # Creative Tools
+  - affinity-designer
+  - affinity-photo
+  - affinity-publisher
+  
+  # Security
+  - 1password
+  - little-snitch
+  
+  # AI and ML
+  - ollama
   - miniconda
+  
+  # Hardware Specific
+  - elgato-camera-hub
+  - elgato-control-center
+  - elgato-stream-deck
 homebrew_upgrade_all_packages: true

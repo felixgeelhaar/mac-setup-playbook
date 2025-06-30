@@ -1,0 +1,177 @@
+---
+- name: Setup development environments
+  block:
+    # Node.js and NVM setup
+    - name: Check if NVM is installed
+      ansible.builtin.stat:
+        path: "{{ ansible_env.HOME }}/.nvm"
+      register: nvm_installed
+
+    - name: Install latest LTS Node.js via NVM
+      ansible.builtin.shell: |
+        source {{ ansible_env.HOME }}/.nvm/nvm.sh
+        nvm install --lts
+        nvm use --lts
+        nvm alias default lts/*
+      when: nvm_installed.stat.exists
+      register: node_install_result
+      changed_when: "'is already installed' not in node_install_result.stdout"
+
+    - name: Install essential Node.js global packages
+      community.general.npm:
+        name: "{{ item }}"
+        global: true
+        state: present
+      loop:
+        - typescript
+        - tsx
+        - eslint
+        - prettier
+        - nodemon
+        - pm2
+        - http-server
+        - json-server
+      when: nvm_installed.stat.exists
+
+    # Python environment setup
+    - name: Create Python virtual environment directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.virtualenvs"
+        state: directory
+        mode: '0755'
+
+    - name: Install essential Python packages globally
+      ansible.builtin.pip:
+        name: "{{ item }}"
+        state: present
+        executable: pip3
+      loop:
+        - virtualenv
+        - pipenv
+        - poetry
+        - black
+        - flake8
+        - pytest
+        - jupyter
+        - numpy
+        - pandas
+        - requests
+
+    # Go environment setup
+    - name: Create Go workspace directories
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/go/{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - src
+        - bin
+        - pkg
+
+    - name: Set Go environment variables in shell profile
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        line: "{{ item }}"
+        create: true
+      loop:
+        - 'export GOPATH=$HOME/go'
+        - 'export PATH=$PATH:$GOPATH/bin'
+
+    - name: Install essential Go tools
+      ansible.builtin.shell: go install {{ item }}
+      loop:
+        - golang.org/x/tools/cmd/goimports@latest
+        - golang.org/x/lint/golint@latest
+        - github.com/gorilla/mux@latest
+        - github.com/gin-gonic/gin@latest
+      environment:
+        GOPATH: "{{ ansible_env.HOME }}/go"
+        PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/go/bin"
+      ignore_errors: true
+
+    # Rust environment setup
+    - name: Check if Rust is installed
+      ansible.builtin.command: rustc --version
+      register: rust_check
+      failed_when: false
+      changed_when: false
+
+    - name: Install Rust components
+      ansible.builtin.shell: |
+        rustup component add clippy
+        rustup component add rustfmt
+        rustup component add rust-analyzer
+      when: rust_check.rc == 0
+
+    - name: Install essential Rust crates
+      ansible.builtin.shell: cargo install {{ item }}
+      loop:
+        - cargo-edit
+        - cargo-watch
+        - cargo-expand
+        - ripgrep
+        - fd-find
+        - bat
+      when: rust_check.rc == 0
+      ignore_errors: true
+
+    # PHP environment setup
+    - name: Install PHP Composer packages globally
+      community.general.composer:
+        command: require
+        arguments: "{{ item }}"
+        global_command: true
+      loop:
+        - phpunit/phpunit
+        - squizlabs/php_codesniffer
+        - friendsofphp/php-cs-fixer
+        - phpstan/phpstan
+      ignore_errors: true
+
+    # Docker development setup
+    - name: Create Docker development compose file
+      ansible.builtin.copy:
+        content: |
+          version: '3.8'
+          services:
+            postgres:
+              image: postgres:15
+              environment:
+                POSTGRES_PASSWORD: password
+                POSTGRES_DB: development
+              ports:
+                - "5432:5432"
+              volumes:
+                - postgres_data:/var/lib/postgresql/data
+            
+            redis:
+              image: redis:7-alpine
+              ports:
+                - "6379:6379"
+                
+            mongodb:
+              image: mongo:6
+              ports:
+                - "27017:27017"
+              volumes:
+                - mongodb_data:/data/db
+
+          volumes:
+            postgres_data:
+            mongodb_data:
+        dest: "{{ ansible_env.HOME }}/docker-compose.dev.yml"
+        mode: '0644'
+
+    # Git configuration
+    - name: Set Git global configuration
+      community.general.git_config:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        scope: global
+      loop:
+        - {name: "init.defaultBranch", value: "main"}
+        - {name: "pull.rebase", value: "false"}
+        - {name: "core.autocrlf", value: "input"}
+        - {name: "core.editor", value: "nvim"}
+        - {name: "merge.tool", value: "vimdiff"}
+        - {name: "diff.tool", value: "vimdiff"}
