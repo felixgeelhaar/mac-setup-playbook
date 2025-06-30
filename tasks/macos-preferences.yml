@@ -1,0 +1,164 @@
+---
+- name: Set macOS system preferences
+  block:
+    # Finder Preferences
+    - name: Show hidden files in Finder
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: AppleShowAllFiles
+        type: bool
+        value: true
+
+    - name: Show file extensions in Finder
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: AppleShowAllExtensions
+        type: bool
+        value: true
+
+    - name: Show path bar in Finder
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: ShowPathbar
+        type: bool
+        value: true
+
+    - name: Show status bar in Finder
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: ShowStatusBar
+        type: bool
+        value: true
+
+    - name: Set Finder default view to list
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: FXPreferredViewStyle
+        type: string
+        value: Nlsv
+
+    # Trackpad and Mouse
+    - name: Enable tap to click
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: Clicking
+        type: bool
+        value: true
+
+    - name: Enable tap to click for login screen
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: com.apple.mouse.tapBehavior
+        type: int
+        value: 1
+
+    - name: Enable three finger drag
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadThreeFingerDrag
+        type: bool
+        value: true
+
+    # Keyboard
+    - name: Set key repeat rate (fast)
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: KeyRepeat
+        type: int
+        value: 1
+
+    - name: Set initial key repeat delay (short)
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: InitialKeyRepeat
+        type: int
+        value: 10
+
+    - name: Disable auto-correct
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: NSAutomaticSpellingCorrectionEnabled
+        type: bool
+        value: false
+
+    # Dock and Desktop
+    - name: Auto-hide the dock
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: autohide
+        type: bool
+        value: true
+
+    - name: Remove dock auto-hide delay
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: autohide-delay
+        type: float
+        value: 0
+
+    - name: Set dock tile size
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: tilesize
+        type: int
+        value: 48
+
+    # Security and Privacy
+    - name: Require password after screensaver or sleep
+      community.general.osx_defaults:
+        domain: com.apple.screensaver
+        key: askForPassword
+        type: bool
+        value: true
+
+    - name: Set screensaver password delay to immediate
+      community.general.osx_defaults:
+        domain: com.apple.screensaver
+        key: askForPasswordDelay
+        type: int
+        value: 0
+
+    # Screenshots
+    - name: Set screenshot location to Desktop
+      community.general.osx_defaults:
+        domain: com.apple.screencapture
+        key: location
+        type: string
+        value: "~/Desktop"
+
+    - name: Set screenshot format to PNG
+      community.general.osx_defaults:
+        domain: com.apple.screencapture
+        key: type
+        type: string
+        value: png
+
+    # Menu Bar
+    - name: Show battery percentage in menu bar
+      community.general.osx_defaults:
+        domain: /{{ ansible_env.HOME }}/Library/Preferences/ByHost/com.apple.controlcenter
+        key: BatteryShowPercentage
+        type: bool
+        value: true
+
+    # Performance
+    - name: Disable animations when opening applications from Dock
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: launchanim
+        type: bool
+        value: false
+
+    - name: Disable window animations
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: NSAutomaticWindowAnimationsEnabled
+        type: bool
+        value: false
+
+  notify: restart_finder
+
+- name: Restart Finder to apply changes
+  ansible.builtin.shell: killall Finder
+  listen: restart_finder
+  ignore_errors: true

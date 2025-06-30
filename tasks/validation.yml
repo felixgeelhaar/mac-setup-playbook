@@ -1,0 +1,118 @@
+---
+- name: Validate installation and setup
+  block:
+    - name: Verify Homebrew installation
+      ansible.builtin.command: brew --version
+      register: brew_version
+      failed_when: false
+      changed_when: false
+
+    - name: Display Homebrew status
+      ansible.builtin.debug:
+        msg: "Homebrew version: {{ brew_version.stdout }}"
+      when: brew_version.rc == 0
+
+    - name: Check installed CLI tools
+      ansible.builtin.command: "{{ item }} --version"
+      register: tool_versions
+      failed_when: false
+      changed_when: false
+      loop:
+        - git
+        - node
+        - python3
+        - go
+        - rustc
+        - docker
+        - kubectl
+        - gh
+
+    - name: Display CLI tool versions
+      ansible.builtin.debug:
+        msg: "{{ item.item }}: {{ item.stdout | default('Not installed') }}"
+      loop: "{{ tool_versions.results }}"
+      when: item.rc == 0
+
+    - name: Check GUI applications
+      ansible.builtin.stat:
+        path: "/Applications/{{ item }}.app"
+      register: app_check
+      loop:
+        - "Google Chrome"
+        - "Firefox"
+        - "Visual Studio Code"
+        - "WezTerm"
+        - "Docker"
+        - "Obsidian"
+        - "1Password 7 - Password Manager"
+
+    - name: Display GUI application status
+      ansible.builtin.debug:
+        msg: "{{ item.item }}: {{ 'Installed' if item.stat.exists else 'Not found' }}"
+      loop: "{{ app_check.results }}"
+
+    - name: Check SSH key
+      ansible.builtin.stat:
+        path: "{{ ansible_env.HOME }}/.ssh/id_ed25519"
+      register: ssh_key_check
+
+    - name: Display SSH key status
+      ansible.builtin.debug:
+        msg: "SSH key: {{ 'Present' if ssh_key_check.stat.exists else 'Not found' }}"
+
+    - name: Check GPG keys
+      ansible.builtin.shell: gpg --list-secret-keys
+      register: gpg_check
+      failed_when: false
+      changed_when: false
+
+    - name: Display GPG key status
+      ansible.builtin.debug:
+        msg: "GPG keys: {{ 'Present' if gpg_check.stdout != '' else 'None found' }}"
+
+    - name: Verify dotfiles repository
+      ansible.builtin.stat:
+        path: "{{ ansible_env.HOME }}/dotfiles"
+      register: dotfiles_check
+
+    - name: Display dotfiles status
+      ansible.builtin.debug:
+        msg: "Dotfiles: {{ 'Cloned' if dotfiles_check.stat.exists else 'Not found' }}"
+
+    - name: Check development environments
+      ansible.builtin.shell: "{{ item }}"
+      register: dev_env_check
+      failed_when: false
+      changed_when: false
+      loop:
+        - "source ~/.nvm/nvm.sh && nvm --version"
+        - "python3 -c 'import pip; print(pip.__version__)'"
+        - "go env GOPATH"
+        - "rustup --version"
+
+    - name: Display development environment status
+      ansible.builtin.debug:
+        msg: |
+          Development Environments:
+          - NVM: {{ dev_env_check.results[0].stdout | default('Not configured') }}
+          - Python pip: {{ dev_env_check.results[1].stdout | default('Not configured') }}
+          - Go GOPATH: {{ dev_env_check.results[2].stdout | default('Not configured') }}
+          - Rustup: {{ dev_env_check.results[3].stdout | default('Not configured') }}
+
+    - name: Create validation summary
+      ansible.builtin.debug:
+        msg: |
+          ==========================================================
+          Mac Setup Validation Complete!
+          ==========================================================
+          
+          ✅ Core tools and environments have been checked
+          ✅ Review the output above for any missing components
+          
+          Next steps:
+          1. If SSH/GPG keys were generated, add them to GitHub/GitLab
+          2. Run 'gh auth login' to authenticate GitHub CLI
+          3. Verify your dotfiles are properly stowed
+          4. Test development environments with sample projects
+          
+          ==========================================================
