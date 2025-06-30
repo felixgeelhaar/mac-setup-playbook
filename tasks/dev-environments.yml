@@ -15,7 +15,7 @@
         nvm alias default lts/*
       when: nvm_installed.stat.exists
       register: node_install_result
-      changed_when: "'is already installed' not in node_install_result.stdout"
+      changed_when: node_install_result.rc == 0
 
     - name: Install essential Node.js global packages
       community.general.npm:
