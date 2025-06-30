@@ -136,7 +136,7 @@
     # Menu Bar
     - name: Show battery percentage in menu bar
       community.general.osx_defaults:
-        domain: /Users/{{ ansible_user }}/Library/Preferences/ByHost/com.apple.controlcenter
+        domain: /{{ ansible_env.HOME }}/Library/Preferences/ByHost/com.apple.controlcenter
         key: BatteryShowPercentage
         type: bool
         value: true
